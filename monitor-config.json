@@ -1,0 +1,69 @@
+{
+  "baseDir": "D:\\VIDEOS_MONITORIA",
+  "scanIntervalSeconds": 10,
+  "processedSubdir": "PROCESSADOS",
+  "errorSubdir": "ERROS",
+  "inProgressSubdir": "PROCESSANDO",
+
+  "minFps": 15,
+  "minWidth": 474,
+  "minHeight": 850,
+
+  "sampling": {
+    "intervalSeconds": 10.0,
+    "maxExtractFps": 30
+  },
+
+  "quality": {
+    "laplacianoMin": 25.0,
+    "entropiaMin": 3.0,
+    "pixelsExtremosMaxPercent": 70.0,
+    "objetoMinPercent": 1.5,
+    "minimoFramesSelecionados": 4
+  },
+
+  "similarity": {
+    "limiarSimilaridadeImagem": 0.90
+  },
+
+  "vision": {
+    "apiKey": "SUA_CHAVE_OPENAI",
+    "openaiUrl": "https://api.openai.com",
+    "model": "gpt-4o-mini",
+	"DESCREVER_FRAME": "Retorne exclusivamente JSON valido. Retorne SOMENTE um objeto com a chave obrigatoria \"descricao\" (string).\nA string \"descricao\" deve conter um JSON compacto seguindo exatamente o modelo logico abaixo, com as mesmas regras.\nIMPORTANTE: como \"descricao\" e uma string, todo \" (aspas duplas) do JSON interno deve ser escapado como \\\" para que o retorno final continue sendo JSON valido.\n\nModelo logico interno (o JSON que vai dentro da string \"descricao\"):\n{ \"ambiente\": \"urbano | rural | interno | industrial | etc\", \"ruas\": [ { \"posicao\": \"\", \"descricao\": \"\" } ], \"pessoas\": [ { \"quantidade\": 1, \"posicao\": \"\", \"acao\": \"\", \"descricao\": \"\" } ], \"animais\": [ { \"tipo\": \"\", \"quantidade\": 1, \"posicao\": \"\", \"descricao\": \"\" } ], \"veiculos\": { \"carros\": [ { \"quantidade\": 1, \"posicao\": \"\", \"descricao\": \"\", \"placa_visivel\": \"sim | nao\" } ] }, \"objetos\": [ { \"tipo\": \"\", \"quantidade\": 1, \"posicao\": \"\", \"descricao\": \"\" } ], \"estruturas\": { \"muros\": [ { \"posicao\": \"\", \"descricao\": \"\" } ] }, \"elementos_naturais\": { \"arvores\": [ { \"quantidade\": 1, \"posicao\": \"\", \"descricao\": \"\" } ] }, \"eventos\": { \"acidente\": { \"descricao\": \"\" } }, \"texto_visivel\": [ { \"conteudo\": \"\", \"posicao\": \"\" } ] }\n\nRegras obrigatorias:\n\nInclua apenas elementos realmente visiveis.\nCategorias possiveis (inclua somente se existirem na imagem): ambiente, ruas, pessoas, animais, veiculos, objetos, estruturas, elementos_naturais, eventos, texto_visivel.\nSe objetos/pessoas/carros/bicicletas/motocicletas repetidos: diferencie usando exclusivamente posicoes: superior esquerdo, superior direito, esquerda, centro, direita, inferior esquerdo, inferior direito.\nNao use campo \"presente\".\nNao retorne arrays vazios: se uma categoria nao tiver elementos, omita completamente a categoria.\nNao retorne campos com valores vazios (\"\", null, false). Se nao houver, omita o campo/categoria.\nRetorne apenas JSON valido no formato final: { \"descricao\": \"<...>\" }.\nExemplo do formato do retorno final (observe o escape de aspas dentro de \"descricao\"): { \"descricao\": \"{\"ambiente\":\"urbano\",\"texto_visivel\":[{\"conteudo\":\"...\",\"posicao\":\"...\"}]}\" }"  
+  },
+
+  "events": {
+    "apiKey": "SUA_CHAVE_OPENAI",
+    "openaiUrl": "https://api.openai.com",
+    "model": "gpt-4o-mini",
+    "DETECCAO_DE_EVENTOS_E_ACAO": "Você é um avaliador de eventos em vídeo. Com base nas descrições dos frames (em ordem temporal), identifique eventos relevantes e retorne SOMENTE JSON válido no formato: {\"any_event\": <boolean>, \"eventos_detectados\": [ {\"tipo\": \"<nome do evento>\", \"severidade\": \"<baixa|media|alta>\", \"justificativa\": \"<1 frase>\", \"acao\": \"<o que o operador deve fazer>\", \"presente\": <boolean>, \"frames_relevantes\": [<indices na lista frames_kept>] } ]}. Se não houver eventos, retorne any_event=false e eventos_detectados=[]."
+  },
+
+  "whatsapp": {
+    "url": "https://graph.whapi.cloud",
+    "apiKey": "SUA_CHAVE_WHAPI",
+    "groupChatId": "SEU_CHAT_ID_DO_GRUPO"
+  },
+
+  "arquivoVivo": {
+    "targetHost": "SEU_HOST_DO_SOCKET",
+    "targetPort": 20002,
+    "chatId": "SEU_CHAT_ID",
+    "numeroWhats": "SEU_NUMERO_WHATS",
+    "useProxy": false,
+    "proxyHost": "",
+    "proxyPort": 0,
+    "proxyUsername": "",
+    "proxyPassword": ""
+  },
+
+  "clip": {
+    "marginSeconds": 8.0
+  },
+
+  "ffmpeg": {
+    "clipMode": "copy"
+  }
+}
+
